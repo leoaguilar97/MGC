@@ -5,7 +5,6 @@ import librosa
 import librosa.display
 import matplotlib.pyplot as plt
 
-"""
 y, sr = librosa.load("./db/blues/blues.00000.wav")
 print(y.shape, sr)
 
@@ -13,7 +12,7 @@ plt.plot(y)
 plt.title("Signal")
 plt.xlabel("Time (samples)")
 plt.ylabel("Amplitude")
-# plt.show()
+plt.show()
 
 spec = np.abs(librosa.stft(y, hop_length=512))
 spec = librosa.amplitude_to_db(spec, ref=np.max)  # converting to decibals
@@ -22,16 +21,16 @@ plt.figure(figsize=(8, 5))
 librosa.display.specshow(spec, sr=sr, x_axis="time", y_axis="log")
 plt.colorbar(format="%+2.0f dB")
 plt.title("Spectrogram")
-# plt.show()
+plt.show()
 
 spect = librosa.feature.melspectrogram(y=y, sr=sr, n_fft=2048, hop_length=1024)
-spect = librosa.power_to_db(spect, ref=np.max)  # Converting to decibals
+spect = librosa.power_to_db(spect, ref=np.max)
 
 plt.figure(figsize=(8, 5))
 librosa.display.specshow(spect, y_axis="mel", fmax=8000, x_axis="time")
 plt.title("Mel Spectrogram")
 plt.colorbar(format="%+2.0f dB")
-# plt.show()
+plt.show()
 
 mfcc = librosa.feature.mfcc(y=y, sr=sr, hop_length=512, n_mfcc=13)
 plt.figure(figsize=(8, 5))
@@ -42,7 +41,6 @@ print(mfcc)
 mfccscaled = np.mean(mfcc.T, axis=0)
 print(mfccscaled)
 
-"""
 # Creating an empty list to store sizes in
 sizes = []
 
@@ -69,9 +67,6 @@ print(
 # Checking the max size
 print(f"The maximum size is: {max(sizes)}")
 print("Revisados: ", len(sizes))
-
-
-
 
 def extract_mel_spectrogram(directory):
     """
@@ -196,10 +191,10 @@ def make_mel_spectrogram_df(directory):
     return df
 
 
-# X, y = extract_mel_spectrogram("./db/blues")
-# df = make_mel_spectrogram_df("./db/blues")
+X, y = extract_mel_spectrogram("./db/blues")
+df = make_mel_spectrogram_df("./db/blues")
 
-# df.to_csv("./data/genre_mel_specs.csv", index=False)
+df.to_csv("./data/genre_mel_specs.csv", index=False)
 
 
 def extract_audio_features(directory):
